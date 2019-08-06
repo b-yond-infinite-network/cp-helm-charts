@@ -127,6 +127,11 @@ cp-kafka-connect:
   #   cpu: 100m
   #   memory: 128Mi
 
+  init:
+    enabled: false
+    image: gcr.io/byond-infinity-platform/telus-toolbox:0.0.2
+    script: /opt/scripts/jobs/cp-kafka-connect.sh
+
   #B_YOND parameter : It adds cephFs volume
   persistence:
     enabled: false
