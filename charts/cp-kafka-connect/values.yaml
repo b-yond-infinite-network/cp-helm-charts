@@ -93,3 +93,8 @@ kafka:
 ## e.g. gnoble-panther-cp-schema-registry:8081
 cp-schema-registry:
   url: ""
+
+init:
+  enabled: false
+  image: gcr.io/byond-infinity-platform/telus-toolbox:0.0.2
+  script: /opt/scripts/jobs/cp-kafka-connect.sh

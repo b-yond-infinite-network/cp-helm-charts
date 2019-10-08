@@ -114,6 +114,10 @@ spec:
       {{- end }}
       {{- if .Values.persistence.enabled }}
       - name: data
+        {{- if .Values.persistence.storageClass }}
+        persistentVolumeClaim:
+          claimName: connect-pv
+        {{- else}}
         flexVolume:
           driver: ceph.rook.io/rook
           fsType: ceph
@@ -123,6 +127,7 @@ spec:
             # by default the path is /, but you can override and mount a specific path of the filesystem by using the path attribute
             # the path must exist on the filesystem, otherwise mounting the filesystem at that path will fail
             path: {{ .Values.persistence.cephFs.baseDir}}
+         {{- end }}
       {{- end }}
       {{- if .Values.nodeSelector }}
       nodeSelector:
