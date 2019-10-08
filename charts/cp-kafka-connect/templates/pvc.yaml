@@ -1,0 +1,15 @@
+{{- if .Values.persistence.enabled }}
+{{- if .Values.persistence.storageClass }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: connect-pv
+spec:
+  storageClassName: {{ .Values.persistence.storageClass }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size }}
+  accessModes:
+  - ReadWriteOnce
+{{- end}}
+{{- end}}
