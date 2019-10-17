@@ -128,16 +128,17 @@ cp-kafka-connect:
   #   memory: 128Mi
 
   #B_YOND parameter : It adds cephFs volume
+  # or a PVC if you specify a storageClass
   persistence:
     enabled: false
     name: cp-connect-data
+    initImage: "busybox:1.31.0"
+    baseDir: /tmp/infinity-shared-fs
+    mountPath: /var/input/ingestion/csv
     cephFs:
-      initImage: busybox
-      fsName: infinity-shared-fs
+      fsName: rook-ceph-fs
       clusterNamespace: rook-ceph
       #Add directory to be created in CephFS volume
-      baseDir: /tmp/infinity-shared-fs
-      mountPath: /var/input/ingestion/csv
 
 ## ------------------------------------------------------
 ## KSQL Server

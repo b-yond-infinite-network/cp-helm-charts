@@ -94,7 +94,9 @@ kafka:
 cp-schema-registry:
   url: ""
 
-init:
+persistence:
   enabled: false
-  image: gcr.io/byond-infinity-platform/telus-toolbox:0.0.2
-  script: /opt/scripts/jobs/cp-kafka-connect.sh
+  name: "cp-connect-data"
+  initImage: "busybox:1.31.0"
+  baseDir: /tmp/infinity-shared-fs
+  mountPath: /var/input/ingestion/csv

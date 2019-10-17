@@ -3,12 +3,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: connect-pv
+  name: {{ .Values.persistence.name }}
   namespace: {{ .Release.Namespace }}
-  annotations:
-    "helm.sh/hook": pre-install,pre-upgrade
-    "helm.sh/hook-weight": "-3"
-    "helm.sh/hook-delete-policy": before-hook-creation
 spec:
   storageClassName: {{ .Values.persistence.storageClass }}
   resources:
