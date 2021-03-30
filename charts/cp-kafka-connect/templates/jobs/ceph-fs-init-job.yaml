@@ -42,5 +42,17 @@ spec:
               # the path must exist on the filesystem, otherwise mounting the filesystem at that path will fail
               # path: /path/to/existing/dir
 {{- end}}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
   backoffLimit: 0
   {{- end}}
