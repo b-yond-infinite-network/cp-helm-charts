@@ -127,7 +127,7 @@ prometheus:
     resources: {}
 
 nodeport:
-  enabled: true
+  enabled: false
   externalDomainName: example.com
   firstServicePort: 32090
   firstListenerPort: 32090
