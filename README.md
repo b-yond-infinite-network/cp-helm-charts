@@ -1,8 +1,15 @@
+|![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Warning.svg/156px-Warning.svg.png) | This project is no longer supported.
+|---|---|
+
 # Confluent Open Source Helm Chart
 
 **The Confluent Platform Helm charts are in developer preview and are not supported for production use.**
 
 The [Confluent Platform Helm charts](https://github.com/confluentinc/cp-helm-charts) enable you to deploy Confluent Platform services on Kubernetes for development, test, and proof of concept environments.
+
+## ⚠️ Deprecation and Archive Notice
+
+This repository was replaced with strimzi operator and [strimzi-kafka-cluster-config](https://github.com/b-yond-infinite-network/strimzi-kafka-cluster-config)
 
 ## Installing Charts
 
