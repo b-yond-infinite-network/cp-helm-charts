@@ -1,0 +1,39 @@
+{{- if .Values.nodeport.enabled }}
+  {{- $fullName := include "cp-kafka.fullname" . }}
+  {{- $brokers := .Values.brokers | int }}
+  {{- $root := . }}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ template "cp-kafka.fullname" . }}
+spec:
+  dnsNames:
+  - {{ .Values.nodeport.externalDomainName }}
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt
+  secretName: {{ template "cp-kafka.fullname" . }}-external-tls
+---
+apiVersion: getambassador.io/v2
+kind:  TLSContext
+metadata:
+  name:  {{ template "cp-kafka.fullname" . }}
+spec:
+  hosts:
+  - {{ .Values.nodeport.externalDomainName }}
+  secret: {{ template "cp-kafka.fullname" . }}-external-tls
+
+  {{- range $i, $e := until $brokers }}
+    {{- $externalListenerPort := add $root.Values.nodeport.firstListenerPort $i }}
+---
+apiVersion: getambassador.io/v2
+kind:  TCPMapping
+metadata:
+  name:  {{ template "cp-kafka.fullname" $root }}-{{ $i }}
+spec:
+  host: {{ $root.Values.nodeport.externalDomainName }}
+  port: {{ $externalListenerPort }}
+  service: {{ template "cp-kafka.fullname" $root }}-{{ $i }}-nodeport:{{ $externalListenerPort }}
+  {{- end }}
+{{- end }}

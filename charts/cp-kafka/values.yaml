@@ -128,8 +128,10 @@ prometheus:
 
 nodeport:
   enabled: false
-  servicePort: 19092
-  firstListenerPort: 31090
+  externalDomainName: example.com
+  firstServicePort: 32090
+  firstListenerPort: 32090
+  firstNodePort: 32190
 
 ## ------------------------------------------------------
 ## Zookeeper

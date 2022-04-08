@@ -184,8 +184,9 @@ The configuration parameters in this section control the resources requested and
 | Parameter | Description | Default |
 | --------- | ----------- | ------- |
 | `nodeport.enabled` | Whether or not to allow access to kafka cluster from outside k8s through NodePort. | `false` |
-| `nodeport.servicePort` | The Port broker will advertise to external producers and consumers.  | `19092` |
-| `nodeport.firstListenerPort` | The first NodePort that Kafka Broker will use for advertising to external producers and consumers. For each broker, advertise.listeners port for external will be set to `31090 + {index of broker pod}`. | `31090` |
+| `nodeport.firstServicePort` | The first Port broker will advertise to external producers and consumers.  | `32090` |
+| `nodeport.firstListenerPort` | The first Port that Kafka Broker will use for advertising to external producers and consumers. For each broker, advertise.listeners port for external will be set to `32090 + {index of broker pod}`. | `32090` |
+| `nodeport.firstNodePort` | The first NodePort that Kafka Broker will use for advertising to external producers and consumers. For each broker, advertise.listeners port for external will be set to `32090 + {index of broker pod}`. | `32090` |
 
 ### Deployment Topology
 

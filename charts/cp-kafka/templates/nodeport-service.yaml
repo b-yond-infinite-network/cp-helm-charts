@@ -1,10 +1,11 @@
 {{- if .Values.nodeport.enabled }}
   {{- $fullName := include "cp-kafka.fullname" . }}
   {{- $brokers := .Values.brokers | int }}
-  {{- $servicePort := .Values.nodeport.servicePort }}
   {{- $root := . }}
   {{- range $i, $e := until $brokers }}
+    {{- $servicePort := add $root.Values.nodeport.firstServicePort $i }}
     {{- $externalListenerPort := add $root.Values.nodeport.firstListenerPort $i }}
+    {{- $externalNodePort := add $root.Values.nodeport.firstNodePort $i }}
     {{- $responsiblePod := printf "%s-%d" (printf "%s" $fullName) $i }}
 ---
 apiVersion: v1
@@ -23,7 +24,7 @@ spec:
     - name: external-broker
       port: {{ $servicePort }}
       targetPort: {{ $externalListenerPort }}
-      nodePort: {{ $externalListenerPort }}
+      nodePort: {{ $externalNodePort }}
       protocol: TCP
   selector:
     app: {{ include "cp-kafka.name" $root }}
